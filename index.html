@@ -3,141 +3,301 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>School Webpage</title>
+  <title>The Aga Khan Academy Portal</title>
   <style>
-    /* basic styling */
-    body {
-      font-family: Arial, sans-serif;
+    /* Aga Khan Academy Portal Styling */
+    :root {
+      --primary-color: #0d2c54;     /* Deep Navy */
+      --accent-color: #0077b6;      /* Teal Blue */
+      --bg-light: #f4f7f6;          /* Off-White */
+      --text-dark: #1d2d44;         /* Slate */
+      --card-bg: #ffffff;
+      --border-color: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      color: #333;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
       line-height: 1.6;
     }
+
+    /* Navigation Header */
     header {
-      background-color: #003366;
-      color: white;
+      background-color: var(--primary-color);
+      color: #fff;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
     }
-    header h1 {
-      margin: 0;
-      font-size: 1.5rem;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 1rem;
-    }
-    .hero {
-      background: #e6f0fa;
-      text-align: center;
-      padding: 3rem 1rem;
-    }
-    .hero h2 {
-      color: #003366;
-      font-size: 2rem;
-    }
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-    .section {
-      margin-bottom: 2rem;
-    }
-    .grid {
+
+    .logo-area {
       display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
     }
-    .card {
-      flex: 1;
-      min-width: 250px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 1rem;
-      background: #f9f9f9;
+
+    .logo-badge {
+      background: var(--accent-color);
+      color: #fff;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
     }
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 5px;
+
+    header h1 {
+      font-size: 1.3rem;
+      font-weight: 600;
     }
-    footer {
-      background-color: #222;
+
+    nav button {
+      background: none;
+      border: none;
+      color: #dbe7f2;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-left: 1rem;
+      padding: 6px 12px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    nav button:hover, nav button.active {
+      color: #ffffff;
+      border-bottom: 2px solid var(--accent-color);
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
       color: white;
+      padding: 3.5rem 2rem;
       text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
+    }
+
+    .hero h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      opacity: 0.9;
+    }
+
+    /* Content Area & Tabs */
+    .container {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #cbd5e1;
+      padding-bottom: 0.5rem;
+    }
+
+    /* Grid Layouts */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Content Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+
+    .card h3 {
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary-color);
+      color: #94a3b8;
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 4rem;
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header & Navigation -->
+  <!-- Navigation Header -->
   <header>
-    <h1>Highland High School</h1>
+    <div class="logo-area">
+      <span class="logo-badge">AKA</span>
+      <h1>The Aga Khan Academy</h1>
+    </div>
     <nav>
-      <a href="#about">About</a>
-      <a href="#academics">Academics</a>
-      <a href="#contact">Contact</a>
+      <button class="nav-btn active" onclick="openTab('home', this)">Home Portal</button>
+      <button class="nav-btn" onclick="openTab('myp', this)">IB MYP Academics</button>
+      <button class="nav-btn" onclick="openTab('student-life', this)">Student Life & CAS</button>
     </nav>
   </header>
 
   <!-- Hero Section -->
   <section class="hero">
-    <h2>Welcome to Highland High School</h2>
-    <p>Empowering Students, Shaping Futures, and Building Community.</p>
+    <h2>Welcome to the Student Portal</h2>
+    <p>International Baccalaureate World School — Excellence in Leadership, Service, and Academics.</p>
   </section>
 
-  <!-- Main Content -->
+  <!-- Main Container -->
   <div class="container">
 
-    <!-- About Section -->
-    <section id="about" class="section">
-      <h3>About Our School</h3>
-      <p>Highland High School is dedicated to providing an inclusive, challenging, and supportive learning environment. We offer a wide range of academic programs, extracurricular activities, and athletic opportunities.</p>
-    </section>
+    <!-- Tab 1: Home Portal -->
+    <div id="home" class="tab-content active">
+      <h2 class="section-title">Academy Overview</h2>
+      <div class="grid-3">
+        <div class="card">
+          <span class="badge">CURRICULUM</span>
+          <h3>IB World School</h3>
+          <p>Providing holistic education through the MYP and Diploma Programmes centered on critical thinking, global citizenship, and learner profile attributes.</p>
+        </div>
 
-    <!-- Highlights Grid -->
-    <section id="academics" class="section">
-      <h3>School Highlights</h3>
-      <div class="grid">
         <div class="card">
-          <img src="https://via.placeholder.com/400x250?text=Academics" alt="Academics">
-          <h4>Academic Excellence</h4>
-          <p>Explore our STEM, Arts, and Humanities programs designed for college readiness.</p>
+          <span class="badge">LEADERSHIP</span>
+          <h3>Student Leadership</h3>
+          <p>Empowering students to lead community service initiatives, environmental drives, and collaborative academic clubs.</p>
         </div>
+
         <div class="card">
-          <img src="https://via.placeholder.com/400x250?text=Sports+%26+Clubs" alt="Sports & Clubs">
-          <h4>Sports & Clubs</h4>
-          <p>Get involved in championship athletics, robotics, drama, debate, and music.</p>
-        </div>
-        <div class="card">
-          <img src="https://via.placeholder.com/400x250?text=Campus+Life" alt="Campus Life">
-          <h4>Vibrant Campus Life</h4>
-          <p>A safe and collaborative space where lifelong friendships and memories are made.</p>
+          <span class="badge">PLATFORMS</span>
+          <h3>Learning Portal</h3>
+          <p>Access assessment criteria, unit planners, deadlines, and task submissions aligned with ManageBac standards.</p>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-      <h3>Contact Us</h3>
-      <p>📍 Address: 123 Education Lane, Learning City</p>
-      <p>📞 Phone: (555) 019-2831</p>
-      <p>✉️ Email: info@highlandhigh.edu</p>
-    </section>
+    <!-- Tab 2: IB MYP Academics -->
+    <div id="myp" class="tab-content">
+      <h2 class="section-title">MYP Subject Groups</h2>
+      <div class="grid-2">
+        <div class="card">
+          <span class="badge">CRITERIA A - D</span>
+          <h3>Digital Design & Coding</h3>
+          <p>Following the Design Cycle (Inquiring & Analyzing, Developing Ideas, Creating the Solution, and Evaluating) to create functional web and software projects.</p>
+        </div>
+
+        <div class="card">
+          <span class="badge">CRITERIA A - D</span>
+          <h3>Arts & Visual Studies</h3>
+          <p>Exploring East African art history, multi-point perspective drawing, and studio practice to communicate personal and cultural expression.</p>
+        </div>
+
+        <div class="card">
+          <span class="badge">CRITERIA A - D</span>
+          <h3>Sciences & Mathematics</h3>
+          <p>Developing analytical skills through scientific inquiry, experimental design, numerical modeling, and real-world problem solving.</p>
+        </div>
+
+        <div class="card">
+          <span class="badge">CRITERIA A - D</span>
+          <h3>Language & Literature</h3>
+          <p>Analyzing literary works, global perspectives, and structured writing across diverse media formats and genres.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Student Life & CAS -->
+    <div id="student-life" class="tab-content">
+      <h2 class="section-title">Co-Curricular Activities & Action</h2>
+      <div class="grid-3">
+        <div class="card">
+          <span class="badge">SERVICE & ACTION</span>
+          <h3>Community Engagement</h3>
+          <p>Student-led service projects targeting environmental sustainability, tree planting, and local community outreach.</p>
+        </div>
+
+        <div class="card">
+          <span class="badge">ATHLETICS</span>
+          <h3>PHE & Athletics</h3>
+          <p>Competitive and recreational programs in Football, Basketball, Swimming, Golf, and Rugby promoting health and teamwork.</p>
+        </div>
+
+        <div class="card">
+          <span class="badge">CLUBS</span>
+          <h3>Coding & Innovation</h3>
+          <p>Building interactive web apps, Python scripts, game logic, and flight dynamics simulation projects.</p>
+        </div>
+      </div>
+    </div>
 
   </div>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2026 Highland High School. All rights reserved.</p>
+    <p>&copy; The Aga Khan Academy | IB Middle Years Programme Portal</p>
   </footer>
+
+  <!-- Script for Tab Switching -->
+  <script>
+    function openTab(tabId, element) {
+      // Hide all tabs
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      // Deactivate all nav buttons
+      const buttons = document.querySelectorAll('.nav-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      // Show selected tab and activate button
+      document.getElementById(tabId).classList.add('active');
+      element.classList.add('active');
+    }
+  </script>
 
 </body>
 </html>
