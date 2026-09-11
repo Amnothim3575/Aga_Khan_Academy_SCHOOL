@@ -1,303 +1,652 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Aga Khan Academy Portal</title>
-  <style>
-    /* Aga Khan Academy Portal Styling */
-    :root {
-      --primary-color: #0d2c54;     /* Deep Navy */
-      --accent-color: #0077b6;      /* Teal Blue */
-      --bg-light: #f4f7f6;          /* Off-White */
-      --text-dark: #1d2d44;         /* Slate */
-      --card-bg: #ffffff;
-      --border-color: #e2e8f0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Aga Khan Academy - Student Portal</title>
+    <style>
+        :root {
+            --primary-blue: #004b87;
+            --secondary-blue: #003366;
+            --accent-blue: #0073e6;
+            --light-bg: #f4f7f9;
+            --card-bg: #ffffff;
+            --text-dark: #1d2b36;
+            --text-muted: #5a6b7c;
+            --border-color: #e1e8ed;
+            --tag-bg: #e6f2ff;
+            --tag-text: #0056b3;
+            --urgent-red: #d9534f;
+            --warning-yellow: #f0ad4e;
+            --success-green: #5cb85c;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
-    body {
-      background-color: var(--bg-light);
-      color: var(--text-dark);
-      line-height: 1.6;
-    }
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
 
-    /* Navigation Header */
-    header {
-      background-color: var(--primary-color);
-      color: #fff;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
+        /* Navigation Bar */
+        header {
+            background-color: var(--secondary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            height: 60px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-    .logo-area {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
 
-    .logo-badge {
-      background: var(--accent-color);
-      color: #fff;
-      font-weight: bold;
-      padding: 6px 12px;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-    }
+        .brand-badge {
+            background-color: #007acc;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
 
-    header h1 {
-      font-size: 1.3rem;
-      font-weight: 600;
-    }
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            height: 100%;
+        }
 
-    nav button {
-      background: none;
-      border: none;
-      color: #dbe7f2;
-      font-size: 1rem;
-      font-weight: 500;
-      margin-left: 1rem;
-      padding: 6px 12px;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: all 0.2s ease;
-    }
+        .nav-btn {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0 0.5rem;
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
 
-    nav button:hover, nav button.active {
-      color: #ffffff;
-      border-bottom: 2px solid var(--accent-color);
-    }
+        .nav-btn:hover {
+            color: white;
+        }
 
-    /* Hero Banner */
-    .hero {
-      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-      color: white;
-      padding: 3.5rem 2rem;
-      text-align: center;
-    }
+        .nav-btn.active {
+            color: white;
+            border-bottom-color: var(--accent-blue);
+        }
 
-    .hero h2 {
-      font-size: 2.2rem;
-      margin-bottom: 0.8rem;
-    }
+        /* Container Layouts */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
 
-    .hero p {
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto;
-      opacity: 0.9;
-    }
+        .tab-content {
+            display: none;
+        }
 
-    /* Content Area & Tabs */
-    .container {
-      max-width: 1100px;
-      margin: 2.5rem auto;
-      padding: 0 1.5rem;
-    }
+        .tab-content.active {
+            display: block;
+        }
 
-    .tab-content {
-      display: none;
-    }
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
 
-    .tab-content.active {
-      display: block;
-    }
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
 
-    .section-title {
-      font-size: 1.6rem;
-      color: var(--primary-color);
-      margin-bottom: 1.5rem;
-      border-bottom: 2px solid #cbd5e1;
-      padding-bottom: 0.5rem;
-    }
+        .hero p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.05rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
 
-    /* Grid Layouts */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
 
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-      gap: 1.5rem;
-    }
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
-    /* Content Cards */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-    }
+        /* Cards & Components */
+        .card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
 
-    .card h3 {
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
 
-    .badge {
-      display: inline-block;
-      background: #e0f2fe;
-      color: #0369a1;
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 12px;
-      margin-bottom: 0.8rem;
-    }
+        .card-title {
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
 
-    /* Footer */
-    footer {
-      background-color: var(--primary-color);
-      color: #94a3b8;
-      text-align: center;
-      padding: 1.5rem;
-      margin-top: 4rem;
-      font-size: 0.9rem;
-    }
-  </style>
+        /* Quick Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .stat-card .label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-top: 4px;
+        }
+
+        /* Classes Grid */
+        .classes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .class-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .class-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .class-header {
+            background-color: #fafbfc;
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .badge-criteria {
+            background-color: var(--tag-bg);
+            color: var(--tag-text);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .class-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        .class-body {
+            padding: 1.25rem;
+        }
+
+        .class-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        /* Deadline Items */
+        .deadline-list {
+            list-style: none;
+        }
+
+        .deadline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .deadline-item:last-child {
+            border-bottom: none;
+        }
+
+        .deadline-info .title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .deadline-info .sub {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .due-tag {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .due-urgent {
+            background-color: #fde8e8;
+            color: var(--urgent-red);
+        }
+
+        .due-soon {
+            background-color: #fef5e7;
+            color: var(--warning-yellow);
+        }
+
+        .due-normal {
+            background-color: #eaf6ea;
+            color: var(--success-green);
+        }
+
+        .announcement-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .announcement-item:last-child {
+            border-bottom: none;
+        }
+
+        .announcement-item h4 {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .announcement-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .announcement-date {
+            font-size: 0.75rem;
+            color: #95a5a6;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Navigation Header -->
-  <header>
-    <div class="logo-area">
-      <span class="logo-badge">AKA</span>
-      <h1>The Aga Khan Academy</h1>
+    <!-- Top Navigation Bar -->
+    <header>
+        <div class="brand">
+            <span class="brand-badge">AKA</span>
+            <span>The Aga Khan Academy</span>
+        </div>
+        <nav>
+            <button class="nav-btn active" onclick="switchTab('home')">Home Portal</button>
+            <button class="nav-btn" onclick="switchTab('academics')">IB MYP Academics</button>
+            <button class="nav-btn" onclick="switchTab('cas')">Student Life & CAS</button>
+        </nav>
+    </header>
+
+    <div class="container">
+
+        <!-- HOME PORTAL TAB -->
+        <div id="home" class="tab-content active">
+            <div class="hero">
+                <h1>Welcome to the Student Portal</h1>
+                <p>International Baccalaureate World School — Excellence in Leadership, Service, and Academics.</p>
+            </div>
+
+            <!-- Stats Overview -->
+            <div class="stats-grid">
+                <div class="stat-card" style="border-left-color: var(--accent-blue);">
+                    <div class="label">Enrolled Classes</div>
+                    <div class="value">6 Subjects</div>
+                </div>
+                <div class="stat-card" style="border-left-color: var(--urgent-red);">
+                    <div class="label">Pending Deadlines</div>
+                    <div class="value">4 Due Soon</div>
+                </div>
+                <div class="stat-card" style="border-left-color: var(--success-green);">
+                    <div class="label">CAS Learning Hours</div>
+                    <div class="value">28 / 50 Hrs</div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Main Content Column -->
+                <div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">School Announcements</h2>
+                        </div>
+                        <div class="announcement-item">
+                            <span class="announcement-date">September 10, 2026</span>
+                            <h4>MYP Criterion Assessment Guidelines Updated</h4>
+                            <p>Please review updated rubric expectations for Criterion A & B assessments in your subject portals.</p>
+                        </div>
+                        <div class="announcement-item">
+                            <span class="announcement-date">September 8, 2026</span>
+                            <h4>Inter-House Sports Tournament Sign-ups</h4>
+                            <p>Registration for swimming, basketball, and football teams closes this Friday at 4:00 PM.</p>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Recent Activity</h2>
+                        </div>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">No recent submissions in the last 24 hours.</p>
+                    </div>
+                </div>
+
+                <!-- Sidebar Column -->
+                <div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Upcoming Deadlines</h2>
+                        </div>
+                        <ul class="deadline-list">
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">East African Art Critique</div>
+                                    <div class="sub">Arts & Visual Studies</div>
+                                </div>
+                                <span class="due-tag due-urgent">Sep 15</span>
+                            </li>
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">Design Cycle Phase A</div>
+                                    <div class="sub">Digital Design & Coding</div>
+                                </div>
+                                <span class="due-tag due-soon">Sep 18</span>
+                            </li>
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">Kinematics Lab Report</div>
+                                    <div class="sub">Integrated Sciences</div>
+                                </div>
+                                <span class="due-tag due-soon">Sep 22</span>
+                            </li>
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">Quadratic Functions Quiz</div>
+                                    <div class="sub">Mathematics</div>
+                                </div>
+                                <span class="due-tag due-normal">Sep 28</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IB MYP ACADEMICS TAB -->
+        <div id="academics" class="tab-content">
+            <h2 style="margin-bottom: 1.5rem; color: var(--primary-blue);">MYP Subject Groups & Virtual Classes</h2>
+            
+            <div class="classes-grid">
+
+                <!-- Digital Design & Coding -->
+                <div class="class-card">
+                    <div class="class-header">
+                        <span class="badge-criteria">Criteria A - D</span>
+                        <div class="class-title">Digital Design & Coding</div>
+                    </div>
+                    <div class="class-body">
+                        <p class="class-desc">Following the Design Cycle (Inquiring & Analyzing, Developing Ideas, Creating, and Evaluating) for functional web and software projects.</p>
+                        <hr style="border: 0; border-top: 1px solid var(--border-color); margin-bottom: 1rem;">
+                        <h4 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Actual Deadlines</h4>
+                        <ul class="deadline-list">
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">Criterion A: Design Brief</div>
+                                    <div class="sub">Inquiring & Analyzing</div>
+                                </div>
+                                <span class="due-tag due-soon">Sep 18, 2026</span>
+                            </li>
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">Criterion B: Web Prototype</div>
+                                    <div class="sub">Developing Ideas</div>
+                                </div>
+                                <span class="due-tag due-normal">Oct 02, 2026</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Arts & Visual Studies -->
+                <div class="class-card">
+                    <div class="class-header">
+                        <span class="badge-criteria">Criteria A - D</span>
+                        <div class="class-title">Arts & Visual Studies</div>
+                    </div>
+                    <div class="class-body">
+                        <p class="class-desc">Exploring East African art history, multi-point perspective drawing, and studio practice to communicate personal and cultural expression.</p>
+                        <hr style="border: 0; border-top: 1px solid var(--border-color); margin-bottom: 1rem;">
+                        <h4 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Actual Deadlines</h4>
+                        <ul class="deadline-list">
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">Criterion A: Artist Research Study</div>
+                                    <div class="sub">Visual Arts Analysis</div>
+                                </div>
+                                <span class="due-tag due-urgent">Sep 15, 2026</span>
+                            </li>
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">Criterion C: Perspective Drawing</div>
+                                    <div class="sub">Studio Piece Submission</div>
+                                </div>
+                                <span class="due-tag due-normal">Oct 09, 2026</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mathematics -->
+                <div class="class-card">
+                    <div class="class-header">
+                        <span class="badge-criteria">Criteria A - D</span>
+                        <div class="class-title">Mathematics</div>
+                    </div>
+                    <div class="class-body">
+                        <p class="class-desc">Developing logical, critical, and creative thinking through algebraic expressions, quadratic functions, and geometric reasoning.</p>
+                        <hr style="border: 0; border-top: 1px solid var(--border-color); margin-bottom: 1rem;">
+                        <h4 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Actual Deadlines</h4>
+                        <ul class="deadline-list">
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">Criterion A: Algebra Unit Test</div>
+                                    <div class="sub">Knowledge & Understanding</div>
+                                </div>
+                                <span class="due-tag due-normal">Sep 28, 2026</span>
+                            </li>
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">Criterion B: Pattern Investigation</div>
+                                    <div class="sub">Investigating Patterns</div>
+                                </div>
+                                <span class="due-tag due-normal">Oct 14, 2026</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Integrated Sciences -->
+                <div class="class-card">
+                    <div class="class-header">
+                        <span class="badge-criteria">Criteria A - D</span>
+                        <div class="class-title">Integrated Sciences</div>
+                    </div>
+                    <div class="class-body">
+                        <p class="class-desc">Investigating physics concepts, kinematics, chemical bonding, and environmental ecosystems through scientific inquiry.</p>
+                        <hr style="border: 0; border-top: 1px solid var(--border-color); margin-bottom: 1rem;">
+                        <h4 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Actual Deadlines</h4>
+                        <ul class="deadline-list">
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">Criterion C: Kinematics Lab Data</div>
+                                    <div class="sub">Processing & Evaluating</div>
+                                </div>
+                                <span class="due-tag due-soon">Sep 22, 2026</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Language & Literature -->
+                <div class="class-card">
+                    <div class="class-header">
+                        <span class="badge-criteria">Criteria A - D</span>
+                        <div class="class-title">Language & Literature</div>
+                    </div>
+                    <div class="class-body">
+                        <p class="class-desc">Analyzing literary texts, developing persuasive writing techniques, and exploring global perspectives in modern prose.</p>
+                        <hr style="border: 0; border-top: 1px solid var(--border-color); margin-bottom: 1rem;">
+                        <h4 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Actual Deadlines</h4>
+                        <ul class="deadline-list">
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">Criterion A: Literary Essay Draft</div>
+                                    <div class="sub">Analyzing Prose</div>
+                                </div>
+                                <span class="due-tag due-normal">Oct 05, 2026</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Physical & Health Education -->
+                <div class="class-card">
+                    <div class="class-header">
+                        <span class="badge-criteria">Criteria A - D</span>
+                        <div class="class-title">Physical & Health Education</div>
+                    </div>
+                    <div class="class-body">
+                        <p class="class-desc">Enhancing physical performance, movement analysis, strategic play, and understanding personal health and fitness planning.</p>
+                        <hr style="border: 0; border-top: 1px solid var(--border-color); margin-bottom: 1rem;">
+                        <h4 style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.5rem;">Actual Deadlines</h4>
+                        <ul class="deadline-list">
+                            <li class="deadline-item">
+                                <div class="deadline-info">
+                                    <div class="title">Criterion D: Training Journal Log</div>
+                                    <div class="sub">Reflecting & Improving</div>
+                                </div>
+                                <span class="due-tag due-normal">Oct 12, 2026</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- STUDENT LIFE & CAS TAB -->
+        <div id="cas" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Creativity, Activity, Service (CAS) Portfolio</h2>
+                </div>
+                <p style="margin-bottom: 1rem;">Track your extracurricular experiences, service projects, and personal growth logs.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="label">Creativity</div>
+                        <div class="value">10 Hours</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Activity</div>
+                        <div class="value">12 Hours</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="label">Service</div>
+                        <div class="value">6 Hours</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-    <nav>
-      <button class="nav-btn active" onclick="openTab('home', this)">Home Portal</button>
-      <button class="nav-btn" onclick="openTab('myp', this)">IB MYP Academics</button>
-      <button class="nav-btn" onclick="openTab('student-life', this)">Student Life & CAS</button>
-    </nav>
-  </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h2>Welcome to the Student Portal</h2>
-    <p>International Baccalaureate World School — Excellence in Leadership, Service, and Academics.</p>
-  </section>
+    <!-- Tab Switching Script -->
+    <script>
+        function switchTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
 
-  <!-- Main Container -->
-  <div class="container">
+            // Deactivate all nav buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(button => button.classList.remove('active'));
 
-    <!-- Tab 1: Home Portal -->
-    <div id="home" class="tab-content active">
-      <h2 class="section-title">Academy Overview</h2>
-      <div class="grid-3">
-        <div class="card">
-          <span class="badge">CURRICULUM</span>
-          <h3>IB World School</h3>
-          <p>Providing holistic education through the MYP and Diploma Programmes centered on critical thinking, global citizenship, and learner profile attributes.</p>
-        </div>
+            // Show target tab content
+            document.getElementById(tabId).classList.add('active');
 
-        <div class="card">
-          <span class="badge">LEADERSHIP</span>
-          <h3>Student Leadership</h3>
-          <p>Empowering students to lead community service initiatives, environmental drives, and collaborative academic clubs.</p>
-        </div>
-
-        <div class="card">
-          <span class="badge">PLATFORMS</span>
-          <h3>Learning Portal</h3>
-          <p>Access assessment criteria, unit planners, deadlines, and task submissions aligned with ManageBac standards.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tab 2: IB MYP Academics -->
-    <div id="myp" class="tab-content">
-      <h2 class="section-title">MYP Subject Groups</h2>
-      <div class="grid-2">
-        <div class="card">
-          <span class="badge">CRITERIA A - D</span>
-          <h3>Digital Design & Coding</h3>
-          <p>Following the Design Cycle (Inquiring & Analyzing, Developing Ideas, Creating the Solution, and Evaluating) to create functional web and software projects.</p>
-        </div>
-
-        <div class="card">
-          <span class="badge">CRITERIA A - D</span>
-          <h3>Arts & Visual Studies</h3>
-          <p>Exploring East African art history, multi-point perspective drawing, and studio practice to communicate personal and cultural expression.</p>
-        </div>
-
-        <div class="card">
-          <span class="badge">CRITERIA A - D</span>
-          <h3>Sciences & Mathematics</h3>
-          <p>Developing analytical skills through scientific inquiry, experimental design, numerical modeling, and real-world problem solving.</p>
-        </div>
-
-        <div class="card">
-          <span class="badge">CRITERIA A - D</span>
-          <h3>Language & Literature</h3>
-          <p>Analyzing literary works, global perspectives, and structured writing across diverse media formats and genres.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tab 3: Student Life & CAS -->
-    <div id="student-life" class="tab-content">
-      <h2 class="section-title">Co-Curricular Activities & Action</h2>
-      <div class="grid-3">
-        <div class="card">
-          <span class="badge">SERVICE & ACTION</span>
-          <h3>Community Engagement</h3>
-          <p>Student-led service projects targeting environmental sustainability, tree planting, and local community outreach.</p>
-        </div>
-
-        <div class="card">
-          <span class="badge">ATHLETICS</span>
-          <h3>PHE & Athletics</h3>
-          <p>Competitive and recreational programs in Football, Basketball, Swimming, Golf, and Rugby promoting health and teamwork.</p>
-        </div>
-
-        <div class="card">
-          <span class="badge">CLUBS</span>
-          <h3>Coding & Innovation</h3>
-          <p>Building interactive web apps, Python scripts, game logic, and flight dynamics simulation projects.</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; The Aga Khan Academy | IB Middle Years Programme Portal</p>
-  </footer>
-
-  <!-- Script for Tab Switching -->
-  <script>
-    function openTab(tabId, element) {
-      // Hide all tabs
-      const tabs = document.querySelectorAll('.tab-content');
-      tabs.forEach(tab => tab.classList.remove('active'));
-
-      // Deactivate all nav buttons
-      const buttons = document.querySelectorAll('.nav-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-
-      // Show selected tab and activate button
-      document.getElementById(tabId).classList.add('active');
-      element.classList.add('active');
-    }
-  </script>
-
+            // Activate matching nav button
+            event.currentTarget.classList.add('active');
+        }
+    </script>
 </body>
 </html>
